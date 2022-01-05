@@ -40,7 +40,7 @@ app.use(cors());
 // console.log(db.select('*').from('users').then(data => { console.log(data); }));
 
 app.get('/', (req, res) => {
-    res.send(database.users);
+    res.send('database.users');
 });
 
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt, salt); });
