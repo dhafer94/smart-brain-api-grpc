@@ -24,11 +24,10 @@ const salt = bcrypt.genSaltSync(10);
 const db = knex({
     client: 'pg',
     connection: {
-        host: process.env.DB_HOST,
-        port: process.env.DB_PORT,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false
+        }
     }
 });
 
@@ -40,7 +39,7 @@ app.use(cors());
 // console.log(db.select('*').from('users').then(data => { console.log(data); }));
 
 app.get('/', (req, res) => {
-    res.send('database.users');
+    res.send(database.users);
 });
 
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt, salt); });
